@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Daily Planner — Just Dare2Dream</title>
+    <title>Notes — Just Dare2Dream</title>
     <meta
       name="description"
-      content="Plan your day with Just Dare2Dream: three priorities, an hour-by-hour schedule, a to-do list and notes. Everything stays in your browser."
+      content="Just Dare2Dream Notes: write, pin and search your notes. Everything stays in your browser."
     />
     <meta name="theme-color" content="#070b14" />
     <link rel="icon" type="image/png" href="assets/logo-mark.png" />
@@ -17,7 +17,7 @@
       href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap"
     />
     <link rel="stylesheet" href="style.css" />
-    <script src="planner.js" defer></script>
+    <script src="notes.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -30,9 +30,7 @@
           <span>Just Dare<b>2</b>Dream</span>
         </a>
         <div class="nav-links">
-          <a href="#priorities">Priorities</a>
-          <a href="#schedule">Schedule</a>
-          <a href="#tasks">To-do</a>
+          <a class="accent" href="https://organise.justdare2dream.com">Planner <span aria-hidden="true">↗</span></a>
           <a class="accent" href="https://yappr.justdare2dream.com">Yappr <span aria-hidden="true">↗</span></a>
         </div>
         <a class="nav-pill" href="https://justdare2dream.com">Home <span aria-hidden="true">↗</span></a>
@@ -41,78 +39,53 @@
 
     <main id="main">
       <section class="hero wrap" aria-labelledby="hero-title">
-        <p class="eyebrow"><span class="dot"></span>Plan it. Do it. Dream it.</p>
-        <h1 id="hero-title">Small steps.<br />Big <span class="grad">days.</span></h1>
+        <p class="eyebrow"><span class="dot"></span>Write it down. Dream it up.</p>
+        <h1 id="hero-title">Big ideas start<br />as <span class="grad">notes.</span></h1>
         <p class="lead">
-          Your daily planner. Pick three things that matter, map out the hours, tick off the
-          rest. Everything is saved in this browser, so it's only ever yours.
+          Catch every thought before it floats away. Pin the important ones, search the rest.
+          Everything is saved in this browser, so it's only ever yours.
         </p>
-
-        <div class="day-picker" role="group" aria-label="Choose a day">
-          <button class="icon-btn" type="button" data-shift="-1" aria-label="Previous day">←</button>
-          <div class="day-label">
-            <span class="day-name" id="day-name">Today</span>
-            <span class="day-date" id="day-date"></span>
-          </div>
-          <button class="icon-btn" type="button" data-shift="1" aria-label="Next day">→</button>
-          <input type="date" id="day-input" aria-label="Jump to date" />
-          <button class="btn btn-ghost" type="button" id="today-btn">Today</button>
-        </div>
       </section>
 
-      <div class="strip" aria-live="polite">
-        <div class="wrap strip-inner">
-          <span id="stat-tasks">0 of 0 tasks done</span>
-          <span class="spark" aria-hidden="true">✦</span>
-          <span id="stat-priorities">0 of 3 priorities done</span>
-          <span class="spark" aria-hidden="true">✦</span>
-          <span class="strip-brand">Just Dare<b>2</b>Dream</span>
-        </div>
-        <div class="progress" aria-hidden="true"><span id="progress-bar"></span></div>
-      </div>
-
-      <section class="wrap section" id="priorities" aria-labelledby="priorities-title">
-        <p class="label"><b>01 /</b> What matters most</p>
-        <h2 id="priorities-title">Top three<span class="dot-end">.</span></h2>
-        <div class="priority-grid" id="priority-list"></div>
-      </section>
-
-      <section class="wrap section split" aria-label="Schedule and tasks">
-        <div id="schedule">
-          <p class="label"><b>02 /</b> Hour by hour</p>
-          <h2>The plan<span class="dot-end">.</span></h2>
-          <div class="card schedule-card">
-            <ol class="schedule" id="schedule-list"></ol>
+      <div class="workspace wrap" id="workspace">
+        <aside class="panel sidebar" aria-label="Your notes">
+          <div class="sidebar-head">
+            <button class="btn btn-primary" type="button" id="new-note">New note <span aria-hidden="true">+</span></button>
+            <label class="sr-only" for="search">Search notes</label>
+            <input class="search" id="search" type="search" placeholder="Search notes…" autocomplete="off" />
           </div>
-        </div>
+          <ul class="note-list" id="note-list"></ul>
+          <p class="list-empty" id="list-empty" hidden></p>
+          <p class="sidebar-foot" id="note-count"></p>
+        </aside>
 
-        <div id="tasks">
-          <p class="label"><b>03 /</b> Get it done</p>
-          <h2>To-do<span class="dot-end">.</span></h2>
-          <div class="card">
-            <form class="add-task" id="task-form">
-              <label class="sr-only" for="task-input">New task</label>
-              <input id="task-input" type="text" placeholder="Add a task…" maxlength="200" autocomplete="off" />
-              <button class="btn btn-primary" type="submit">Add <span aria-hidden="true">+</span></button>
-            </form>
-            <ul class="tasks" id="task-list"></ul>
-            <p class="empty" id="task-empty">Nothing here yet. Add your first task above.</p>
-            <button class="text-btn" type="button" id="clear-done" hidden>Clear completed</button>
-          </div>
-
-          <div class="card card-violet notes-card">
+        <section class="panel editor" aria-label="Editor" id="editor">
+          <div class="editor-empty" id="editor-empty">
             <span class="icon-box" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 20h4L19 9l-4-4L4 16v4ZM13.5 6.5l4 4" /></svg>
             </span>
-            <p class="card-kicker">For everything else</p>
-            <h3><label for="notes">Notes.</label></h3>
-            <textarea id="notes" rows="6" placeholder="Ideas, reminders, a little gratitude…"></textarea>
+            <h2>A blank page<span class="grad">.</span></h2>
+            <p>Pick a note on the left, or start a new one.</p>
           </div>
-        </div>
-      </section>
+
+          <div id="editor-fields" hidden>
+            <div class="editor-bar">
+              <button class="btn btn-ghost back-btn" type="button" id="back">← Notes</button>
+              <span class="saved" id="saved" aria-live="polite"></span>
+              <button class="btn btn-ghost pin-btn" type="button" id="pin" aria-pressed="false">Pin</button>
+              <button class="btn btn-ghost btn-danger" type="button" id="delete">Delete</button>
+            </div>
+            <label class="sr-only" for="title">Title</label>
+            <input class="title-input" id="title" type="text" placeholder="Untitled" maxlength="120" autocomplete="off" />
+            <label class="sr-only" for="body">Note</label>
+            <textarea class="body-input" id="body" placeholder="Start writing…"></textarea>
+            <p class="editor-foot" id="word-count"></p>
+          </div>
+        </section>
+      </div>
 
       <p class="footer-note wrap">
-        Saved automatically on this device. Clearing your browser data clears your planner. <span aria-hidden="true">♡</span>
+        Saved automatically on this device. Clearing your browser data clears your notes. <span aria-hidden="true">♡</span>
       </p>
     </main>
   </body>

@@ -1,8 +1,8 @@
-# Just Dare2Dream — Daily Planner
+# Just Dare2Dream — Notes
 
-A daily planner in the Just Dare2Dream homepage style: three priorities, an hour-by-hour schedule (6 AM–10 PM), a to-do list and notes.
+A notes app in the Just Dare2Dream homepage style. Write notes, pin the important ones, search them all, and delete what you don't need. Notes save automatically as you type.
 
-Plain HTML, CSS and JavaScript in `public/`, with no build step and no dependencies. Each day is saved in the visitor's browser (`localStorage`, key `jd2d-planner-v1`). Nothing is sent to a server, and each device keeps its own planner.
+Plain HTML, CSS and JavaScript in `public/`, with no build step and no dependencies. Notes are saved in the visitor's browser (`localStorage`, key `jd2d-notes-v1`). Nothing is sent to a server, and each device keeps its own notes.
 
 ## Preview locally
 
@@ -22,7 +22,7 @@ Create a Worker from this repository with these build settings:
 - **Build command:** leave empty
 - **Deploy command:** `npx wrangler deploy`
 
-`wrangler.jsonc` serves `public/` as static assets. Then add a custom domain such as `organise.justdare2dream.com` under the Worker's **Settings → Domains & Routes**.
+`wrangler.jsonc` serves `public/` as static assets. Then add a custom domain under the Worker's **Settings → Domains & Routes**.
 
 ## Assets
 

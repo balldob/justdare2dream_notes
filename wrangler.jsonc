@@ -1,7 +1,7 @@
 {
-  "name": "justdare2dream-planner",
+  "name": "justdare2dream-notes",
   "compatibility_date": "2026-10-29",
-  // Static site only: the planner keeps everything in the visitor's browser.
+  // Static site only: the notes app keeps everything in the visitor's browser.
   "assets": {
     "directory": "./public"
   }
